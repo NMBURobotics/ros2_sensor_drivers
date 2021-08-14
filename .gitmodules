@@ -1,0 +1,12 @@
+[submodule "ros2_ouster_drivers"]
+	path = ros2_ouster_drivers
+	url = https://github.com/NMBURobotics/ros2_ouster_drivers.git
+[submodule "zed-ros2-wrapper"]
+	path = zed-ros2-wrapper
+	url = https://github.com/NMBURobotics/zed-ros2-wrapper.git
+[submodule "bluespace_ai_xsens_ros_mti_driver"]
+	path = bluespace_ai_xsens_ros_mti_driver
+	url = https://github.com/NMBURobotics/bluespace_ai_xsens_ros_mti_driver.git
+[submodule "nmea_navsat_driver"]
+	path = nmea_navsat_driver
+	url = https://github.com/NMBURobotics/nmea_navsat_driver.git
