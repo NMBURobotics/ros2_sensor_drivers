@@ -5,7 +5,7 @@
 	path = zed-ros2-wrapper
 	url = https://github.com/NMBURobotics/zed-ros2-wrapper.git
 [submodule "ros2_intel_realsense"]
-	path = zed-ros2-wrapper
+	path = ros2_intel_realsense
 	url = https://github.com/NMBURobotics/ros2_intel_realsense.git
 [submodule "bluespace_ai_xsens_ros_mti_driver"]
 	path = bluespace_ai_xsens_ros_mti_driver
