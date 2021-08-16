@@ -29,6 +29,8 @@ def generate_launch_description():
         'zed_wrapper')
     nmea_share_dir = get_package_share_directory(
         'nmea_navsat_driver')
+    realsense_share_dir = get_package_share_directory(
+        'realsense_ros2_camera')    
 
     # Specify the actions
     bringup_sensor_group = GroupAction([
@@ -44,6 +46,11 @@ def generate_launch_description():
         IncludeLaunchDescription(PythonLaunchDescriptionSource(
             os.path.join(zed_share_dir, 'launch',
                          'zed.launch.py'))),
+
+        IncludeLaunchDescription(PythonLaunchDescriptionSource(
+            os.path.join(realsense_share_dir, 'launch',
+                         'ros2_intel_realsense.launch.py'))),
+
         IncludeLaunchDescription(PythonLaunchDescriptionSource(
             os.path.join(nmea_share_dir, 'launch',
                          'nmea_serial_driver.launch.py'))),
