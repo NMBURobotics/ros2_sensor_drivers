@@ -1,7 +1,7 @@
 # ros2_sensor_drivers
 A collection of common sensors in robotics such as Ouster LIDAR, ZED Cam, Xsens IMU, nmea sentenced GPS(s) etc.
 
-# Disclamer
+# Disclaimer
 
 Note that the packages have their own dependencies. For instance realsense and ZED both require their own SDKs and they needed to be installed for a successful build. Dependencies are not hosted in this package, only ROS2 interfaces of drivers are kept here for conveniently managing all sensors in one workspace.
 
