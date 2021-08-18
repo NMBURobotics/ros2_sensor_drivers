@@ -17,16 +17,20 @@ from launch.actions import (GroupAction,
                             IncludeLaunchDescription)
 import os
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch_ros.actions import Node
 
 
 def generate_launch_description():
+
+    default_rviz = os.path.join(get_package_share_directory('sensor_drivers_bringup'),
+                                'config', 'rviz.rviz')
 
     imu_share_dir = get_package_share_directory(
         'bluespace_ai_xsens_mti_driver')
     lidar_share_dir = get_package_share_directory(
         'ros2_ouster')
-    zed_share_dir = get_package_share_directory(
-        'zed_wrapper')
+    #zed_share_dir = get_package_share_directory(
+    #    'zed_wrapper')
     nmea_share_dir = get_package_share_directory(
         'nmea_navsat_driver')
     realsense_share_dir = get_package_share_directory(
@@ -39,13 +43,14 @@ def generate_launch_description():
             os.path.join(imu_share_dir, 'launch',
                          'xsens_mti_node.launch.py'))),
 
-        IncludeLaunchDescription(PythonLaunchDescriptionSource(
-            os.path.join(lidar_share_dir, 'launch',
-                         'driver_launch.py'))),
+        #IncludeLaunchDescription(PythonLaunchDescriptionSource(
+        #   os.path.join(lidar_share_dir, 'launch',
+        #                  'driver_launch.py'))),
 
-        IncludeLaunchDescription(PythonLaunchDescriptionSource(
-            os.path.join(zed_share_dir, 'launch',
-                         'zed.launch.py'))),
+
+        #IncludeLaunchDescription(PythonLaunchDescriptionSource(
+        #    os.path.join(zed_share_dir, 'launch',
+        #                 'zed.launch.py'))),
 
         IncludeLaunchDescription(PythonLaunchDescriptionSource(
             os.path.join(realsense_share_dir, 'launch',
@@ -56,6 +61,16 @@ def generate_launch_description():
                          'nmea_serial_driver.launch.py'))),
     ])
 
+        # Rviz
+    rviz_node = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', default_rviz],
+        output={'both': 'log'}, #change it to screen if you wanna see RVIZ output in terminal
+        )
+
     return LaunchDescription([
-        bringup_sensor_group
+        bringup_sensor_group,
+        rviz_node
     ])

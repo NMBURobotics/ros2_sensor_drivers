@@ -23,8 +23,8 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-    data_root_path = "/home/atas/data/13_08_2021/"
-    specific_bag = "rosbag2_2021_08_13-15_53_07"
+    data_root_path = "/home/atas/data/"
+    specific_bag = "lidar_no_tf_rosbag2_2021_08_17-14_56_00/"
     bag = data_root_path + specific_bag
 
     share_dir = get_package_share_directory('sensor_drivers_bringup')
@@ -56,7 +56,7 @@ def generate_launch_description():
     )
 
     bag_play = ExecuteProcess(
-        cmd=['ros2', 'bag', 'play', '-r' '5.0', bag],
+        cmd=['ros2', 'bag', 'play', '-r' '0.5', bag],
         output='screen'
     )
 
@@ -76,5 +76,5 @@ def generate_launch_description():
         static_tf_xsens_imu,
         bag_play,
         declare_rviz_config_file_cmd,
-        rviz_node
+        #rviz_node
     ])
