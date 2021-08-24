@@ -43,9 +43,9 @@ def generate_launch_description():
             os.path.join(imu_share_dir, 'launch',
                          'xsens_mti_node.launch.py'))),
 
-        #IncludeLaunchDescription(PythonLaunchDescriptionSource(
-        #   os.path.join(lidar_share_dir, 'launch',
-        #                  'driver_launch.py'))),
+        IncludeLaunchDescription(PythonLaunchDescriptionSource(
+           os.path.join(lidar_share_dir, 'launch',
+                          'driver_launch.py'))),
 
 
         #IncludeLaunchDescription(PythonLaunchDescriptionSource(

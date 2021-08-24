@@ -16,7 +16,6 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 import os
 from launch.actions.execute_process import ExecuteProcess
-from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
@@ -24,7 +23,7 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
     data_root_path = "/home/atas/data/"
-    specific_bag = "lidar_no_tf_rosbag2_2021_08_17-14_56_00/"
+    specific_bag = "lidar_no_tf_rosbag2_2021_08_17-11_31_22/"
     bag = data_root_path + specific_bag
 
     share_dir = get_package_share_directory('sensor_drivers_bringup')
@@ -51,12 +50,12 @@ def generate_launch_description():
     static_tf_xsens_imu = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        arguments=['0', '0', '0', '0', '0', '0', '1000',
+        arguments=['0', '0', '0', '0', '0', '0', '50',
                    'imu_link', 'xsens_imu_link']
     )
 
     bag_play = ExecuteProcess(
-        cmd=['ros2', 'bag', 'play', '-r' '0.5', bag],
+        cmd=['ros2', 'bag', 'play', '-r' ' 1.0', bag],
         output='screen'
     )
 

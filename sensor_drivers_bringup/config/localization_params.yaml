@@ -1,8 +1,8 @@
 ekf_local_filter_node:
   ros__parameters:
     use_sim_time: false
-    clear_params: true
-    publish_tf: true
+    clear_params: false
+    publish_tf: false
     filter_type: "ekf"
     frequency: 30.0
     sensor_timeout: 0.1
@@ -69,8 +69,8 @@ ekf_local_filter_node:
 ekf_global_filter_node:
   ros__parameters:
     use_sim_time: false
-    clear_params: true
-    publish_tf: true
+    clear_params: false
+    publish_tf: false
     filter_type: "ekf"
     frequency: 30.0
     sensor_timeout: 0.1
@@ -150,13 +150,14 @@ ekf_global_filter_node:
 
 navsat_transform_node:
   ros__parameters:
-    use_sim_time: true
+    publish_tf: false
+    use_sim_time: false
     frequency: 30.0
     delay: 0.0
     magnetic_declination_radians: 0.0  # For lat/long 55.944831, -3.186998
     yaw_offset: 1.57 # IMU reads 0 facing magnetic north, not east
     zero_altitude: false
-    broadcast_utm_transform: true
+    broadcast_utm_transform: false
     broadcast_utm_transform_as_parent_frame: false
     publish_filtered_gps: true
     use_odometry_yaw: false
