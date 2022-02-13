@@ -7,7 +7,7 @@ ekf_local_filter_node:
     frequency: 30.0
     sensor_timeout: 0.1
     odom0: /odometry/base_raw
-    imu0: /xsens/imu
+    imu0: /imu/data
     odom_frame: odom
     base_link_frame: base_link
     world_frame: odom
@@ -76,7 +76,7 @@ ekf_global_filter_node:
     sensor_timeout: 0.1
     odom0: /odometry/base_raw
     odom1: /odometry/gps
-    imu0: /xsens/imu
+    imu0: /imu/data
     map_frame: map
     odom_frame: odom
     base_link_frame: base_link
