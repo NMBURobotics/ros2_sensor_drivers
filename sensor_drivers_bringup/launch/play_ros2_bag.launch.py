@@ -75,5 +75,5 @@ def generate_launch_description():
         static_tf_xsens_imu,
         bag_play,
         declare_rviz_config_file_cmd,
-        #rviz_node
+        rviz_node
     ])
