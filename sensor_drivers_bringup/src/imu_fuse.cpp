@@ -42,24 +42,23 @@ void ImuFuse::onXsensImuMsg(const sensor_msgs::msg::Imu::SharedPtr msg)
 void ImuFuse::onGPSImuMsg(const sensor_msgs::msg::Imu::SharedPtr msg)
 {
   latest_gps_msg_ = msg;
+
 }
 
 ImuFuse::ImuFuse(const rclcpp::NodeOptions & node_options)
-: Node("clock_publisher", node_options)
+: Node("imu_fuse", node_options)
 {
-  fused_imu_pub_ = this->create_publisher<sensor_msgs::msg::Imu>("imu/data/absolute", 1);
+  fused_imu_pub_ = this->create_publisher<sensor_msgs::msg::Imu>("imu/absolute", rclcpp::QoS(5));
 
-  rclcpp::QoS qos = rclcpp::QoS(10)
-    .reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT)
-    .durability(RMW_QOS_POLICY_DURABILITY_VOLATILE);
-
-  xsens_imu_sub_ =
-    this->create_subscription<sensor_msgs::msg::Imu>(
-    "imu/data", qos, std::bind(&ImuFuse::onXsensImuMsg, this, std::placeholders::_1));
+  rclcpp::QoS qos = rclcpp::SensorDataQoS(rclcpp::KeepLast(1));
 
   gps_heading_imu_sub_ =
     this->create_subscription<sensor_msgs::msg::Imu>(
     "heading/imu", qos, std::bind(&ImuFuse::onGPSImuMsg, this, std::placeholders::_1));
+
+      xsens_imu_sub_ =
+    this->create_subscription<sensor_msgs::msg::Imu>(
+    "imu/data", qos, std::bind(&ImuFuse::onXsensImuMsg, this, std::placeholders::_1));
 }
 
 #include <rclcpp_components/register_node_macro.hpp>
