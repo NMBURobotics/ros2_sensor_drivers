@@ -10,11 +10,20 @@
   <author email="fetullah.atas@nmbu.no">Fetullah Atas</author>
   <maintainer email="fetullah.atas@nmbu.no">Fetullah Atas</maintainer>
   <url type="repository">https://github.com/jediofgever/ROS_CB</url>
-  <buildtool_depend>ament_cmake</buildtool_depend>
+  
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
   <exec_depend>zed_wrapper</exec_depend>
   <exec_depend>ros2_ouster</exec_depend>
   <exec_depend>bluespace_ai_xsens_ros_mti_driver</exec_depend>
+  
+  <depend>sensor_msgs</depend>
+  <depend>builtin_interfaces</depend>
+  <depend>rosgraph_msgs</depend>
+  <depend>rclcpp_components</depend>
+  <depend>rclcpp</depend>
+
   <export>
     <build_type>ament_cmake</build_type>
   </export>
+
 </package>

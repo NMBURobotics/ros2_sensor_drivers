@@ -29,12 +29,12 @@ def generate_launch_description():
         'bluespace_ai_xsens_mti_driver')
     lidar_share_dir = get_package_share_directory(
         'ros2_ouster')
-    #zed_share_dir = get_package_share_directory(
+    # zed_share_dir = get_package_share_directory(
     #    'zed_wrapper')
     nmea_share_dir = get_package_share_directory(
         'nmea_navsat_driver')
     realsense_share_dir = get_package_share_directory(
-        'realsense_ros2_camera')    
+        'realsense_ros2_camera')
 
     # Specify the actions
     bringup_sensor_group = GroupAction([
@@ -44,11 +44,11 @@ def generate_launch_description():
                          'xsens_mti_node.launch.py'))),
 
         IncludeLaunchDescription(PythonLaunchDescriptionSource(
-           os.path.join(lidar_share_dir, 'launch',
-                          'driver_launch.py'))),
+            os.path.join(lidar_share_dir, 'launch',
+                         'driver_launch.py'))),
 
 
-        #IncludeLaunchDescription(PythonLaunchDescriptionSource(
+        # IncludeLaunchDescription(PythonLaunchDescriptionSource(
         #    os.path.join(zed_share_dir, 'launch',
         #                 'zed.launch.py'))),
 
@@ -61,16 +61,24 @@ def generate_launch_description():
                          'nmea_serial_driver.launch.py'))),
     ])
 
-        # Rviz
+    # Rviz
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
         name='rviz2',
         arguments=['-d', default_rviz],
-        output={'both': 'log'}, #change it to screen if you wanna see RVIZ output in terminal
-        )
+        # change it to screen if you wanna see RVIZ output in terminal
+        output={'both': 'log'},
+    )
+
+    imu_fuse_node = Node(
+        package='sensor_drivers_bringup',
+        executable='imu_fuse_node',
+        name='imu_fuse_node',
+        output='screen')
 
     return LaunchDescription([
         bringup_sensor_group,
-        rviz_node
+        rviz_node,
+        imu_fuse_node
     ])
