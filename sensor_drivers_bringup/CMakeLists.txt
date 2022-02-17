@@ -18,6 +18,7 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+
 ament_auto_find_build_dependencies()
 
 ament_auto_add_library(imu_fuse SHARED

@@ -75,6 +75,7 @@ def generate_launch_description():
         package='sensor_drivers_bringup',
         executable='imu_fuse_node',
         name='imu_fuse_node',
+        #prefix=['xterm -e gdb -ex run --args'],
         output='screen')
 
     return LaunchDescription([

@@ -32,23 +32,12 @@ private:
   sensor_msgs::msg::Imu::SharedPtr latest_gps_msg_;
 };
 
-void ImuFuse::onXsensImuMsg(const sensor_msgs::msg::Imu::SharedPtr msg)
-{
-  auto fused = msg;
-  fused->orientation = latest_gps_msg_->orientation;
-  fused_imu_pub_->publish(*fused);
-}
-
-void ImuFuse::onGPSImuMsg(const sensor_msgs::msg::Imu::SharedPtr msg)
-{
-  latest_gps_msg_ = msg;
-
-}
-
 ImuFuse::ImuFuse(const rclcpp::NodeOptions & node_options)
 : Node("imu_fuse", node_options)
 {
-  fused_imu_pub_ = this->create_publisher<sensor_msgs::msg::Imu>("imu/absolute", rclcpp::QoS(5));
+  fused_imu_pub_ = this->create_publisher<sensor_msgs::msg::Imu>("imu/absolute", rclcpp::SensorDataQoS());
+  
+  latest_gps_msg_ = std::make_shared<sensor_msgs::msg::Imu>();
 
   rclcpp::QoS qos = rclcpp::SensorDataQoS(rclcpp::KeepLast(1));
 
@@ -59,6 +48,20 @@ ImuFuse::ImuFuse(const rclcpp::NodeOptions & node_options)
       xsens_imu_sub_ =
     this->create_subscription<sensor_msgs::msg::Imu>(
     "imu/data", qos, std::bind(&ImuFuse::onXsensImuMsg, this, std::placeholders::_1));
+
+    RCLCPP_INFO(get_logger(),"Creating...");
+}
+
+void ImuFuse::onXsensImuMsg(const sensor_msgs::msg::Imu::SharedPtr msg)
+{
+  auto fused = std::make_shared<sensor_msgs::msg::Imu>(*msg);
+  fused->orientation = latest_gps_msg_->orientation;
+  fused_imu_pub_->publish(*fused);
+}
+
+void ImuFuse::onGPSImuMsg(const sensor_msgs::msg::Imu::SharedPtr msg)
+{
+  latest_gps_msg_ = msg;
 }
 
 #include <rclcpp_components/register_node_macro.hpp>
