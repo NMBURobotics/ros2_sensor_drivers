@@ -33,7 +33,7 @@ def generate_launch_description():
     declare_rviz_config_file_cmd = DeclareLaunchArgument(
         'rviz_config',
         default_value=os.path.join(share_dir, 'config',
-                                   'vox_nav_default_view.rviz'),
+                                   'rviz.rviz'),
         description='Full path to the RVIZ config file to use')
     
     static_tf_lidar_data = Node(
@@ -97,7 +97,7 @@ def generate_launch_description():
                     ('/tf_static', 'tf_static')])
 
     bag_play = ExecuteProcess(
-        cmd=['ros2', 'bag', 'play', '-r' ' 1.0', bag],
+        cmd=['ros2', 'bag', 'play', '-r' ' 0.5', bag],
         output='screen'
     )
 
